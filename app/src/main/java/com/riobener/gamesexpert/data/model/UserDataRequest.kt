@@ -1,4 +1,4 @@
-package com.riobener.gamesexpert.models
+package com.riobener.gamesexpert.data.model
 
 import com.google.gson.annotations.SerializedName
 

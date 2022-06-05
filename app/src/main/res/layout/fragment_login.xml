@@ -27,15 +27,15 @@
                 android:text="Авторизация"
                 android:layout_marginTop="@dimen/loginViewsMargin"/>
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputEmail"
+                android:id="@+id/textInputUsername"
                 style="@style/parent"
                 android:layout_marginTop="@dimen/loginViewsMargin">
 
                 <EditText
-                    android:id="@+id/editTextEmail"
+                    android:id="@+id/editTextUsername"
                     style="@style/modifiedEditText"
                     android:hint="@string/login_username_hint"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPersonName"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
