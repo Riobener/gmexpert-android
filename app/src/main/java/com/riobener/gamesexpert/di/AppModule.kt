@@ -1,6 +1,6 @@
 package com.riobener.gamesexpert.di
 
-import com.riobener.gamesexpert.data.api.GameService
+import com.riobener.gamesexpert.data.api.UserService
 import com.riobener.gamesexpert.utils.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -30,11 +30,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(baseUrl: String): GameService =
+    fun provideRetrofit(): Retrofit =
         Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(baseUrl())
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient())
             .build()
-            .create(GameService::class.java)
+
+    @Provides
+    @Singleton
+    fun userService(retrofit: Retrofit) = retrofit.create(UserService::class.java)
 }

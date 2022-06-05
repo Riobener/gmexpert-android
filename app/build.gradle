@@ -1,8 +1,10 @@
 plugins {
+    id 'dagger.hilt.android.plugin'
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
+
 
 android {
     compileSdk 32
