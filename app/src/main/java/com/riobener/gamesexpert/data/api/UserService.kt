@@ -7,9 +7,9 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface UserService {
-    @POST("/user/auth")
+    @POST("user/auth")
     suspend fun authUser(@Body userDataRequest: UserDataRequest): Response<TokenResponse>
 
-    @POST("/user/register")
+    @POST("user/register")
     suspend fun createUser(@Body userDataRequest: UserDataRequest)
 }
