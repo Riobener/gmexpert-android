@@ -5,6 +5,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.riobener.gamesexpert.databinding.ActivityMainBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
@@ -12,12 +16,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.fragment_splash)
-        Handler(Looper.myLooper()!!).postDelayed({
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(3000)
+            _binding = ActivityMainBinding.inflate(layoutInflater)
             setContentView(mBinding.root)
-        },3000)
-
+        }
     }
 
     override fun onDestroy() {
