@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Games Expert</string>
 
-    <string name="register">REGISTER</string>
-    <string name="login_username_hint">Username</string>
-    <string name="login_password_hint">Password</string>
-    <string name="signup_login_hint">Already have an account? Sign In</string>
-    <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
+    <string name="login_username_hint">Имя пользователя</string>
+    <string name="login_password_hint">Пароль</string>
+    <string name="login_repeat_password_hint">Повторите пароль</string>
+    <string name="signup_login_hint">Уже есть аккаунт? Войти</string>
+    <string name="login_signup_hint">Еще нет аккаунта? Зарегистрируйтесь</string>
     <string name="login_name_hint">Name</string>
     <string name="login_mobile_number_hint">Mobile Number</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -18,4 +18,6 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="registration_title">Регистрация</string>
+    <string name="login_title">Авторизация</string>
 </resources>
