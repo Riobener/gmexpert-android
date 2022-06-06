@@ -1,6 +1,8 @@
 package com.riobener.gamesexpert.ui
 
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -50,7 +52,11 @@ class GameDetailsFragment : Fragment() {
                         releasedText.text = it.details.released
                         ratingText.text = it.details.rating.toString()
                         metacriticText.text = it.details.metacritic.toString()
-                        game_description.text = it.details.description
+                        game_description.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            Html.fromHtml(it.details.description, Html.FROM_HTML_MODE_COMPACT)
+                        } else {
+                            Html.fromHtml(it.details.description)
+                        }
                     }
                 }
                 is Resource.Error -> {

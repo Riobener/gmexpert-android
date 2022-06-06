@@ -4,20 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.GameDetailsFragment">
-    <ProgressBar
-        android:id="@+id/detailsProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        style="?attr/progressBarStyle"
-        android:visibility="invisible"
-        android:background="@android:color/transparent"
-        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:orientation="vertical">
+        <ProgressBar
+            android:id="@+id/detailsProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="?attr/progressBarStyle"
+            android:visibility="invisible"
+            android:background="@android:color/transparent"
+            />
         <ImageView
             android:id="@+id/game_bg"
             android:layout_width="match_parent"
@@ -33,7 +33,6 @@
             android:layout_marginBottom="20dp"
             android:textSize="25sp"
             android:textAlignment="center"
-            android:text="Grand Theft Auto 5"
             android:textStyle="bold"
             />
         <LinearLayout
@@ -121,7 +120,6 @@
             android:id="@+id/game_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="DESCRIPTION"
             android:textSize="15sp">
         </TextView>
         <LinearLayout

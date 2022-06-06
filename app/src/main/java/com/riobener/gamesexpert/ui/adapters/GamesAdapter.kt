@@ -30,13 +30,18 @@ class GamesAdapter : RecyclerView.Adapter<GamesAdapter.GamesViewHolder>() {
     val differ = AsyncListDiffer(this, callBack)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GamesViewHolder {
+
         return GamesViewHolder(
+
             LayoutInflater.from(parent.context).inflate(R.layout.game_preview_element, parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: GamesViewHolder, position: Int) {
         val game = differ.currentList[position]
+        holder.itemView.setOnClickListener{
+            onItemClick?.invoke(game)
+        }
         holder.itemView.apply{
             Glide.with(this).load(game.background_image).into(game_image)
             game_image.clipToOutline = true
@@ -48,10 +53,10 @@ class GamesAdapter : RecyclerView.Adapter<GamesAdapter.GamesViewHolder>() {
         return differ.currentList.size
     }
 
-    private var onItemClickListener: ((Game) -> Unit)? = null
+    var onItemClick: ((Game) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (Game) -> Unit) {
-        onItemClickListener = listener
+        onItemClick = listener
     }
 
 }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
@@ -13,7 +14,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.riobener.gamesexpert.R
 import com.riobener.gamesexpert.databinding.FragmentGamesListBinding
-import com.riobener.gamesexpert.databinding.FragmentLoginBinding
 import com.riobener.gamesexpert.ui.adapters.GamesAdapter
 import com.riobener.gamesexpert.ui.viewmodels.GamesListViewModel
 import com.riobener.gamesexpert.ui.viewmodels.LoginViewModel
@@ -63,13 +63,15 @@ class GamesListFragment : Fragment() {
 
     private fun initAdapter(view: View){
         gamesAdapter = GamesAdapter()
+        gamesAdapter.onItemClick = {
+            Log.d("TAP","TAPPING")
+            val action = GamesListFragmentDirections.actionGamesListFragmentToGameDetailsFragment(it.id)
+            Navigation.findNavController(view).navigate(action)
+        }
         gamesList.apply{
             adapter = gamesAdapter
             layoutManager = LinearLayoutManager(activity)
         }
-        gamesAdapter.setOnItemClickListener {
-            val action = GamesListFragmentDirections.actionGamesListFragmentToGameDetailsFragment(it.id)
-            Navigation.findNavController(view).navigate(action)
-        }
+
     }
 }
