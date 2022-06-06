@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_gamesListFragment"
+            app:destination="@id/gamesListFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -23,4 +26,9 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/gamesListFragment"
+        android:name="com.riobener.gamesexpert.ui.GamesListFragment"
+        android:label="fragment_games_list"
+        tools:layout="@layout/fragment_games_list" />
 </navigation>

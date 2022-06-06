@@ -1,4 +1,4 @@
-package com.riobener.gamesexpert.data
+package com.riobener.gamesexpert.data.repository
 
 import com.riobener.gamesexpert.data.api.UserService
 import com.riobener.gamesexpert.data.model.LoggedInUser

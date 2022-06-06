@@ -1,5 +1,6 @@
 package com.riobener.gamesexpert.di
 
+import com.riobener.gamesexpert.data.api.GameService
 import com.riobener.gamesexpert.data.api.UserService
 import com.riobener.gamesexpert.utils.Constants.Companion.BASE_URL
 import dagger.Module
@@ -40,4 +41,8 @@ object AppModule {
     @Provides
     @Singleton
     fun userService(retrofit: Retrofit) = retrofit.create(UserService::class.java)
+
+    @Provides
+    @Singleton
+    fun gameService(retrofit: Retrofit) = retrofit.create(GameService::class.java)
 }
