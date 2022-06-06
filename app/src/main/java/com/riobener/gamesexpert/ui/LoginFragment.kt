@@ -7,6 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import com.riobener.gamesexpert.R
 import com.riobener.gamesexpert.databinding.FragmentLoginBinding
 import com.riobener.gamesexpert.ui.viewmodels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +26,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(layoutInflater,container,false)
+        _binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
         return mBinding.root
     }
 
@@ -31,9 +35,12 @@ class LoginFragment : Fragment() {
         val username = mBinding.editTextUsername
         val password = mBinding.editTextPassword
         val loginButton = mBinding.loginButton
-        loginButton.setOnClickListener{
-            viewModel.authUser(username = username.text.toString(),password = password.text.toString())
-            Toast.makeText(mBinding.root.context,"Successfully! ${viewModel.token}",Toast.LENGTH_LONG).show()
+        loginButton.setOnClickListener {view->
+            viewModel.authUser(username = username.text.toString(), password = password.text.toString())
+            viewModel.token.observe(this, Observer {
+                if(it!=null)
+                view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            })
         }
     }
 }
