@@ -15,6 +15,6 @@ interface GameService {
 
     @GET("games/details")
     suspend fun findGameDetails(
-        @Query(value = "gameId") id: String,
+        @Query(value = "gameId") id: Int,
     ): Response<GameDetailsResponse>
 }

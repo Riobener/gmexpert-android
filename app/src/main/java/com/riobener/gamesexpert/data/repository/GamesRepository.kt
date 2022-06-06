@@ -7,4 +7,7 @@ import javax.inject.Inject
 class GamesRepository @Inject constructor(private val gameService: GameService) {
     suspend fun getGames(page: String, page_size: String) =
         gameService.findGames(page, page_size)
+
+    suspend fun getGameDetails(id: Int) =
+        gameService.findGameDetails(id)
 }

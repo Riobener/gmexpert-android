@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.riobener.gamesexpert.R
@@ -38,7 +39,7 @@ class GamesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initAdapter()
+        initAdapter(view)
         viewModel.gamesLiveData.observe(viewLifecycleOwner){response->
             when (response) {
                 is Resource.Success -> {
@@ -60,11 +61,15 @@ class GamesListFragment : Fragment() {
         }
     }
 
-    private fun initAdapter(){
+    private fun initAdapter(view: View){
         gamesAdapter = GamesAdapter()
         gamesList.apply{
             adapter = gamesAdapter
             layoutManager = LinearLayoutManager(activity)
+        }
+        gamesAdapter.setOnItemClickListener {
+            val action = GamesListFragmentDirections.actionGamesListFragmentToGameDetailsFragment(it.id)
+            Navigation.findNavController(view).navigate(action)
         }
     }
 }
