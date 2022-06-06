@@ -3,7 +3,7 @@ package com.riobener.gamesexpert.data.model
 import com.google.gson.annotations.SerializedName
 
 data class GameResponse(
-    @SerializedName("result")
+    @SerializedName("results")
     val results: List<Game>
 )
 

@@ -1,5 +1,6 @@
 package com.riobener.gamesexpert.ui.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +45,8 @@ class GamesAdapter : RecyclerView.Adapter<GamesAdapter.GamesViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        Log.i("SSSSS","${differ.currentList.size}")
+        return differ.currentList.size
     }
 
     private var onItemClickListener: ((Game) -> Unit)? = null
