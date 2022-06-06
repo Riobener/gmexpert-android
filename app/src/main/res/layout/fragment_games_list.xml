@@ -20,6 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/game_preview_element"/>
+        <ProgressBar
+            android:id="@+id/gamesProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?attr/progressBarStyle"
+            android:visibility="invisible"
+            android:background="@android:color/transparent"
+            />
     </LinearLayout>
 
 
