@@ -14,6 +14,7 @@ import com.riobener.gamesexpert.R
 import com.riobener.gamesexpert.databinding.FragmentLoginBinding
 import com.riobener.gamesexpert.ui.viewmodels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_login.*
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -43,8 +44,7 @@ class LoginFragment : Fragment() {
             viewModel.authUser(username = username.text.toString(), password = password.text.toString())
             viewModel.token.observe(this, Observer {token->
                 if(token!=null)
-                    //TODO replace to games screen
-                    loginButtonView.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+                    loginButtonView.findNavController().navigate(R.id.action_loginFragment_to_gamesListFragment)
             })
         }
     }

@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface GameService {
     @GET("games")
-    suspend fun authUser(
+    suspend fun findGames(
         @Query(value = "page") page: String,
         @Query(value = "page_size") page_size: String
     ): Response<GameResponse>
