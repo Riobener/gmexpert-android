@@ -2,6 +2,7 @@ package com.riobener.gamesexpert.data
 
 import com.riobener.gamesexpert.data.api.UserService
 import com.riobener.gamesexpert.data.model.LoggedInUser
+import com.riobener.gamesexpert.data.model.SimpleResponse
 import com.riobener.gamesexpert.data.model.TokenResponse
 import com.riobener.gamesexpert.data.model.UserDataRequest
 import retrofit2.Response
@@ -32,6 +33,10 @@ class UserRepository @Inject constructor(private val userService: UserService) {
             setLoggedInUser(LoggedInUser("randomUUID","displayName",result.body()!!.token))
         }
         return result
+    }
+
+    suspend fun register(username: String, password: String): Response<SimpleResponse> {
+        return userService.createUser(UserDataRequest(username, password))
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {

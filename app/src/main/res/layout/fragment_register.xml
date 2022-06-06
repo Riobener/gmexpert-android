@@ -68,13 +68,14 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:id="@+id/loginButton"
+                android:id="@+id/registerButton"
                 style="@style/loginButton"
                 android:text="Создать"
                 android:layout_gravity="right"
                 android:layout_marginTop="@dimen/loginViewsMargin"/>
 
             <TextView
+                android:id="@+id/needToLoginTextView"
                 style="@style/parent"
                 android:textAlignment="textEnd"
                 android:textStyle="bold"

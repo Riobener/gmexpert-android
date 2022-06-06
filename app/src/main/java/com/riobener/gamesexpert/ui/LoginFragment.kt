@@ -35,11 +35,16 @@ class LoginFragment : Fragment() {
         val username = mBinding.editTextUsername
         val password = mBinding.editTextPassword
         val loginButton = mBinding.loginButton
-        loginButton.setOnClickListener {view->
+        val needRegisterTextView = mBinding.needRegisterTextView
+        needRegisterTextView.setOnClickListener{
+            it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+        loginButton.setOnClickListener {loginButtonView->
             viewModel.authUser(username = username.text.toString(), password = password.text.toString())
-            viewModel.token.observe(this, Observer {
-                if(it!=null)
-                view.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            viewModel.token.observe(this, Observer {token->
+                if(token!=null)
+                    //TODO replace to games screen
+                    loginButtonView.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
             })
         }
     }

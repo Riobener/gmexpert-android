@@ -1,5 +1,6 @@
 package com.riobener.gamesexpert.data.api
 
+import com.riobener.gamesexpert.data.model.SimpleResponse
 import com.riobener.gamesexpert.data.model.TokenResponse
 import com.riobener.gamesexpert.data.model.UserDataRequest
 import retrofit2.Response
@@ -11,5 +12,5 @@ interface UserService {
     suspend fun authUser(@Body userDataRequest: UserDataRequest): Response<TokenResponse>
 
     @POST("user/register")
-    suspend fun createUser(@Body userDataRequest: UserDataRequest)
+    suspend fun createUser(@Body userDataRequest: UserDataRequest): Response<SimpleResponse>
 }
