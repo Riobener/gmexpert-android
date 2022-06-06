@@ -17,3 +17,25 @@ data class Game(
     @SerializedName("rating")
     val rating: Double
 )
+
+data class GameDetails(
+    val id: Int,
+    val name: String,
+    val description: String,
+    val released: String,
+    val background_image: String,
+    val rating: Double
+)
+
+data class GameScreenshots(
+    val results: List<Screenshot>
+)
+
+data class Screenshot(
+    val image: String
+)
+
+data class GameDetailsResponse(
+    val details: GameDetails,
+    val images: GameScreenshots
+)

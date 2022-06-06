@@ -43,7 +43,6 @@ class GamesListFragment : Fragment() {
             when (response) {
                 is Resource.Success -> {
                     gamesProgressBar.visibility = View.INVISIBLE
-
                     response.data?.let{
                         gamesAdapter.differ.submitList(it.results)
                     }
