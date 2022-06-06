@@ -45,7 +45,6 @@ class GamesAdapter : RecyclerView.Adapter<GamesAdapter.GamesViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        Log.i("SSSSS","${differ.currentList.size}")
         return differ.currentList.size
     }
 

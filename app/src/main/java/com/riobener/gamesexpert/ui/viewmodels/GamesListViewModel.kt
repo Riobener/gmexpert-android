@@ -26,7 +26,6 @@ class GamesListViewModel @Inject constructor(private val repository: GamesReposi
             gamesLiveData.postValue(Resource.Loading())
             val response = repository.getGames(pageNumber.toString(), pageSize.toString())
             if(response.isSuccessful){
-                Log.i("BBBB","${response.body()}")
                 response.body().let{res->
                     gamesLiveData.postValue(Resource.Success(res))
                 }
