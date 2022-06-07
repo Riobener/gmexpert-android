@@ -64,8 +64,10 @@ class GameDetailsFragment : Fragment() {
                         } else {
                             Html.fromHtml(it.details.description)
                         }
+                        website_link.text = it.details.website
+                        metacritic_link.text = it.details.metacritic_url
                         image_slider.setImageList(imageList)
-                        image_slider.startSliding(1700)
+                        image_slider.startSliding(1500)
                     }
                 }
                 is Resource.Error -> {

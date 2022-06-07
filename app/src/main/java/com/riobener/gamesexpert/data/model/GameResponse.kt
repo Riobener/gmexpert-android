@@ -25,7 +25,9 @@ data class GameDetails(
     val released: String,
     val background_image: String,
     val rating: Double,
-    val metacritic: Int
+    val metacritic: Int,
+    val website: String,
+    val metacritic_url: String
 )
 
 data class GameScreenshots(
