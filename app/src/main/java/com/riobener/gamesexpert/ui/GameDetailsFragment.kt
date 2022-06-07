@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 import com.riobener.gamesexpert.databinding.FragmentGameDetailsBinding
 import com.riobener.gamesexpert.ui.viewmodels.GameDetailsViewModel
 import com.riobener.gamesexpert.utils.Resource
@@ -46,6 +49,10 @@ class GameDetailsFragment : Fragment() {
                 is Resource.Success -> {
                     detailsProgressBar.visibility = View.INVISIBLE
                     response.data?.let{
+                        val imageList = ArrayList<SlideModel>()
+                        for(image in it.images.results){
+                            imageList.add(SlideModel(image.image,ScaleTypes.CENTER_INSIDE) )
+                        }
                         Glide.with(this).load(it.details.background_image).into(game_bg)
                         game_bg.clipToOutline = true
                         game_title.text = it.details.name
@@ -57,6 +64,8 @@ class GameDetailsFragment : Fragment() {
                         } else {
                             Html.fromHtml(it.details.description)
                         }
+                        image_slider.setImageList(imageList)
+                        image_slider.startSliding(1700)
                     }
                 }
                 is Resource.Error -> {
