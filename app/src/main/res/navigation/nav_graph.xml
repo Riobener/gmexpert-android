@@ -19,9 +19,6 @@
         <action
             android:id="@+id/action_loginFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_searchFragment2"
-            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"

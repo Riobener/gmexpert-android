@@ -21,5 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GamesListViewModel @Inject constructor(private val repository: GamesRepository) : ViewModel() {
-    val games = repository.getGames()
+    fun getGames(token: String): Flow<PagingData<Game>> {
+        return repository.getGames(token)
+    }
+
 }

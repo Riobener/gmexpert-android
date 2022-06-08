@@ -10,7 +10,7 @@ import com.riobener.gamesexpert.data.repository.GamesRepository
 import com.riobener.gamesexpert.utils.Resource
 import javax.inject.Inject
 
-class GamesPagingSource @Inject constructor(private val service: GameService) :
+class GamesPagingSource @Inject constructor(private val service: GameService, private val token: String) :
     PagingSource<Int, Game>() {
     override fun getRefreshKey(state: PagingState<Int, Game>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -22,7 +22,7 @@ class GamesPagingSource @Inject constructor(private val service: GameService) :
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Game> {
         return try {
             val page = params.key ?: STARTING_PAGE_INDEX
-            val response = service.findGames(page.toString(), "10")
+            val response = service.findGames(page.toString(), "10", token)
             LoadResult.Page(
                 data = response.results,
                 prevKey = null,

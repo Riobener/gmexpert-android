@@ -14,10 +14,10 @@ import javax.inject.Inject
 class GameDetailsViewModel @Inject constructor(private val repository: GamesRepository) : ViewModel() {
     val gameLiveData: MutableLiveData<Resource<GameDetailsResponse>> = MutableLiveData()
 
-    fun getGameDetails(id: Int) =
+    fun getGameDetails(id: Int, token: String) =
         viewModelScope.launch {
             gameLiveData.postValue(Resource.Loading())
-            val response = repository.getGameDetails(id)
+            val response = repository.getGameDetails(id, token)
             if(response.isSuccessful){
                 response.body().let{res->
                     gameLiveData.postValue(Resource.Success(res))

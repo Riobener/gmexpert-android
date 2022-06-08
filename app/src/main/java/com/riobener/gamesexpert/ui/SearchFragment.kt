@@ -1,5 +1,6 @@
 package com.riobener.gamesexpert.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -16,6 +17,7 @@ import com.riobener.gamesexpert.databinding.FragmentSearchBinding
 import com.riobener.gamesexpert.ui.adapters.GamesAdapter
 import com.riobener.gamesexpert.ui.adapters.SearchGamesAdapter
 import com.riobener.gamesexpert.ui.viewmodels.SearchViewModel
+import com.riobener.gamesexpert.utils.Constants.Companion.TOKEN_QUERY
 import com.riobener.gamesexpert.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -41,10 +43,15 @@ class SearchFragment : Fragment() {
         return mBinding.root
     }
 
+    private fun getToken(): String {
+        val prefs = this.activity!!.getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        return prefs.getString("token", "")!!
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initAdapter(view)
+        viewModel.token = TOKEN_QUERY+getToken()
         var job: Job? = null
         edit_search.addTextChangedListener { text: Editable? ->
             job?.cancel()

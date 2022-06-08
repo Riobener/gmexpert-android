@@ -1,5 +1,6 @@
 package com.riobener.gamesexpert.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -21,6 +22,7 @@ import com.riobener.gamesexpert.databinding.FragmentGamesListBinding
 import com.riobener.gamesexpert.ui.adapters.GamesAdapter
 import com.riobener.gamesexpert.ui.viewmodels.GamesListViewModel
 import com.riobener.gamesexpert.ui.viewmodels.LoginViewModel
+import com.riobener.gamesexpert.utils.Constants.Companion.TOKEN_QUERY
 import com.riobener.gamesexpert.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_games_list.*
@@ -46,25 +48,11 @@ class GamesListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter(view)
-        /*viewModel.gamesLiveData.observe(viewLifecycleOwner){response->
-            when (response) {
-                is Resource.Success -> {
-                    gamesProgressBar.visibility = View.INVISIBLE
-                    response.data?.let{
-                        gamesAdapter.differ.submitList(it.results)
-                    }
-                }
-                is Resource.Error -> {
-                    gamesProgressBar.visibility = View.INVISIBLE
-                    response.data?.let{
-                        Log.e("wrongData", "GamesFragment: ${it}")
-                    }
-                }
-                is Resource.Loading ->{
-                    gamesProgressBar.visibility = View.VISIBLE
-                }
-            }
-        }*/
+    }
+
+    private fun getToken(): String {
+        val prefs = this.activity!!.getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        return prefs.getString("token", "")!!
     }
 
     private fun initAdapter(view: View) {
@@ -78,7 +66,7 @@ class GamesListFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
         }
         lifecycleScope.launch {
-            viewModel.games.collectLatest { pagingData ->
+            viewModel.getGames(TOKEN_QUERY+getToken()).collectLatest { pagingData ->
                 gamesAdapter.submitData(pagingData)
             }
         }

@@ -1,5 +1,6 @@
 package com.riobener.gamesexpert.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +16,11 @@ import com.riobener.gamesexpert.databinding.FragmentLoginBinding
 import com.riobener.gamesexpert.ui.viewmodels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_login.*
+import org.json.JSONException
+
+import android.content.SharedPreferences
+import android.util.Log
+
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -43,9 +49,24 @@ class LoginFragment : Fragment() {
         loginButton.setOnClickListener {loginButtonView->
             viewModel.authUser(username = username.text.toString(), password = password.text.toString())
             viewModel.token.observe(this, Observer {token->
-                if(token!=null)
-                    loginButtonView.findNavController().navigate(R.id.action_loginFragment_to_searchFragment)
+                if(token!=null){
+                    saveToken(token.token)
+                    loginButtonView.findNavController().navigate(R.id.action_loginFragment_to_gamesListFragment)
+                }
+
             })
+        }
+    }
+    fun saveToken(token: String){
+        val prefs: SharedPreferences = activity!!.getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        val edit: SharedPreferences.Editor = prefs.edit()
+        try {
+            val saveToken: String = token
+            edit.putString("token", saveToken)
+            Log.i("Login", saveToken)
+            edit.commit()
+        } catch (e: JSONException) {
+            e.printStackTrace()
         }
     }
 }

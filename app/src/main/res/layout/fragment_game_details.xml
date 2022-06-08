@@ -59,7 +59,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textSize="15sp"
                     android:textAlignment="center"
-                    android:text="Released"
+                    android:text="Релиз"
                     android:textStyle="bold"
                     />
             </LinearLayout>
@@ -83,7 +83,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textSize="15sp"
                     android:textAlignment="center"
-                    android:text="Rating"
+                    android:text="Рейтинг"
                     android:textStyle="bold"
                     />
             </LinearLayout>
@@ -91,7 +91,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="15dp">
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
                 <TextView
                     android:id="@+id/metacriticText"
                     android:layout_width="wrap_content"
@@ -107,6 +108,29 @@
                     android:textSize="15sp"
                     android:textAlignment="center"
                     android:text="Metacritic"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="15dp">
+                <TextView
+                    android:id="@+id/favoriteStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="12sp"
+                    android:textAlignment="center"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="15sp"
+                    android:textAlignment="center"
+                    android:text="Избранное"
                     android:textStyle="bold"
                     />
             </LinearLayout>

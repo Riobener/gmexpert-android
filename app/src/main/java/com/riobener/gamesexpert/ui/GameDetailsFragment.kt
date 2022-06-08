@@ -1,5 +1,6 @@
 package com.riobener.gamesexpert.ui
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -18,6 +19,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.riobener.gamesexpert.databinding.FragmentGameDetailsBinding
 import com.riobener.gamesexpert.ui.viewmodels.GameDetailsViewModel
+import com.riobener.gamesexpert.utils.Constants.Companion.TOKEN_QUERY
 import com.riobener.gamesexpert.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_game_details.*
@@ -42,10 +44,15 @@ class GameDetailsFragment : Fragment() {
         return mBinding.root
     }
 
+    private fun getToken(): String {
+       val prefs = this.activity!!.getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        return prefs.getString("token", "")!!
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val gameId = args.gameId
-        viewModel.getGameDetails(gameId)
+        viewModel.getGameDetails(gameId,TOKEN_QUERY+getToken())
         viewModel.gameLiveData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
@@ -61,6 +68,11 @@ class GameDetailsFragment : Fragment() {
                         releasedText.text = it.details.released
                         ratingText.text = it.details.rating.toString()
                         metacriticText.text = it.details.metacritic.toString()
+                        if(it.inFavorite){
+                            favoriteStatus.text = "Удалить"
+                        }else{
+                            favoriteStatus.text = "Добавить"
+                        }
                         game_description.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             Html.fromHtml(it.details.description, Html.FROM_HTML_MODE_COMPACT)
                         } else {
