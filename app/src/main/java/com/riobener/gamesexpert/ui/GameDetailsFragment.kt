@@ -1,5 +1,7 @@
 package com.riobener.gamesexpert.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -66,6 +68,16 @@ class GameDetailsFragment : Fragment() {
                         }
                         website_link.text = it.details.website
                         metacritic_link.text = it.details.metacritic_url
+                        website_link.setOnClickListener{
+                            val openURL = Intent(Intent.ACTION_VIEW)
+                            openURL.data = Uri.parse(website_link.text.toString())
+                            startActivity(openURL)
+                        }
+                        metacritic_link.setOnClickListener{
+                            val openURL = Intent(Intent.ACTION_VIEW)
+                            openURL.data = Uri.parse(metacritic_link.text.toString())
+                            startActivity(openURL)
+                        }
                         image_slider.setImageList(imageList)
                         image_slider.startSliding(1500)
                     }
