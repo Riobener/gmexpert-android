@@ -9,13 +9,13 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
-        <SearchView
-            android:id="@+id/searchView"
+        <TextView
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:iconifiedByDefault="false"
-            android:queryHint="Поиск игр" /><!-- set query string of an search view -->
+            android:text="Главная страница"
+            android:textSize="25dp"
+            android:layout_marginTop="10dp"/><!-- set query string of an search view -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/gamesList"
             android:layout_width="match_parent"

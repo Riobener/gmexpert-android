@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_loginFragment_to_gamesListFragment"
             app:destination="@id/gamesListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -42,5 +45,13 @@
         tools:layout="@layout/fragment_game_details" >
         <argument android:name="gameId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.riobener.gamesexpert.ui.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_gameDetailsFragment"
+            app:destination="@id/gameDetailsFragment" />
     </fragment>
 </navigation>

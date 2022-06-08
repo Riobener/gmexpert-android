@@ -68,7 +68,7 @@ class GamesListFragment : Fragment() {
     }
 
     private fun initAdapter(view: View) {
-        gamesAdapter = GamesAdapter(GamesAdapter.GamesComparator)
+        gamesAdapter = GamesAdapter()
         gamesAdapter.onItemClick = {
             val action = GamesListFragmentDirections.actionGamesListFragmentToGameDetailsFragment(it.id)
             Navigation.findNavController(view).navigate(action)

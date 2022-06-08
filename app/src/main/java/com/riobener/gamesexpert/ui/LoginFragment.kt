@@ -44,7 +44,7 @@ class LoginFragment : Fragment() {
             viewModel.authUser(username = username.text.toString(), password = password.text.toString())
             viewModel.token.observe(this, Observer {token->
                 if(token!=null)
-                    loginButtonView.findNavController().navigate(R.id.action_loginFragment_to_gamesListFragment)
+                    loginButtonView.findNavController().navigate(R.id.action_loginFragment_to_searchFragment)
             })
         }
     }

@@ -20,6 +20,10 @@ class GamesRepository @Inject constructor(private val gameService: GameService) 
             pagingSourceFactory = { GamesPagingSource(gameService) }
         ).flow
     }
+
+    suspend fun getGamesByQuery(query: String)=
+        gameService.findGamesBySearch(query,"10")
+
     suspend fun getGameDetails(id: Int) =
         gameService.findGameDetails(id)
 
