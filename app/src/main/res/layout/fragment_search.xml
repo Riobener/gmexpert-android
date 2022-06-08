@@ -25,7 +25,6 @@
             android:id="@+id/edit_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="19dp"
             android:hint="Введите название игры"
             android:paddingHorizontal="14dp"
             android:paddingVertical="24dp"
