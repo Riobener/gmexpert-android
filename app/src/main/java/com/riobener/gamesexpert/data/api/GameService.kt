@@ -1,11 +1,10 @@
 package com.riobener.gamesexpert.data.api
 
+import com.riobener.gamesexpert.data.model.FavoriteResponse
 import com.riobener.gamesexpert.data.model.GameDetailsResponse
 import com.riobener.gamesexpert.data.model.GameResponse
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface GameService {
     @GET("games")
@@ -27,5 +26,19 @@ interface GameService {
         @Query(value = "gameId") id: Int,
         @Header("Authorization") authHeader: String
     ): Response<GameDetailsResponse>
+
+    @POST("games/favorite")
+    suspend fun addFavorite(
+        @Query (value = "gameId") gameId: String,
+        @Query (value = "title") title: String,
+        @Query (value = "screenshot") screenshot: String,
+        @Header("Authorization") authHeader: String
+    ): Response<FavoriteResponse>
+
+    @DELETE("games/favorite")
+    suspend fun deleteFavorite(
+        @Query (value = "gameId") gameId: String,
+        @Header("Authorization") authHeader: String
+    ): Response<Int>
 
 }

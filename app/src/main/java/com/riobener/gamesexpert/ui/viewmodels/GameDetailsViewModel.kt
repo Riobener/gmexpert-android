@@ -26,4 +26,13 @@ class GameDetailsViewModel @Inject constructor(private val repository: GamesRepo
                 gameLiveData.postValue(Resource.Error(message = response.message()))
             }
         }
+    fun addGameToFavorite(gameId: String, title: String, screenshot: String, token: String) =
+        viewModelScope.launch {
+            repository.addGameToFavorite(gameId, title, screenshot, token)
+        }
+
+    fun deleteFavorite(gameId: String, token: String) =
+        viewModelScope.launch {
+            repository.deleteFavorite(gameId, token)
+        }
 }

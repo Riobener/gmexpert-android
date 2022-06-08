@@ -45,50 +45,69 @@ class GameDetailsFragment : Fragment() {
     }
 
     private fun getToken(): String {
-       val prefs = this.activity!!.getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        val prefs = this.activity!!.getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
         return prefs.getString("token", "")!!
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val gameId = args.gameId
-        viewModel.getGameDetails(gameId,TOKEN_QUERY+getToken())
+        viewModel.getGameDetails(gameId, TOKEN_QUERY + getToken())
         viewModel.gameLiveData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     detailsProgressBar.visibility = View.INVISIBLE
-                    response.data?.let{
+                    response.data?.let { gameDetail ->
                         val imageList = ArrayList<SlideModel>()
-                        for(image in it.images.results){
-                            imageList.add(SlideModel(image.image,ScaleTypes.CENTER_INSIDE) )
+                        for (image in gameDetail.images.results) {
+                            imageList.add(SlideModel(image.image, ScaleTypes.CENTER_INSIDE))
                         }
-                        Glide.with(this).load(it.details.background_image).into(game_bg)
+                        Glide.with(this).load(gameDetail.details.background_image).into(game_bg)
                         game_bg.clipToOutline = true
-                        game_title.text = it.details.name
-                        releasedText.text = it.details.released
-                        ratingText.text = it.details.rating.toString()
-                        metacriticText.text = it.details.metacritic.toString()
-                        if(it.inFavorite){
+                        game_title.text = gameDetail.details.name
+                        releasedText.text = gameDetail.details.released
+                        ratingText.text = gameDetail.details.rating.toString()
+                        metacriticText.text = gameDetail.details.metacritic.toString()
+                        if (gameDetail.inFavorite) {
                             favoriteStatus.text = "Удалить"
-                        }else{
+                        } else {
                             favoriteStatus.text = "Добавить"
                         }
+                        favoriteStatus.setOnClickListener {
+                            if (favoriteStatus.text == "Добавить") {
+                                viewModel.addGameToFavorite(
+                                    gameId = gameDetail.details.id.toString(),
+                                    title = gameDetail.details.name,
+                                    screenshot = gameDetail.details.background_image,
+                                    token = TOKEN_QUERY + getToken()
+                                )
+                                favoriteStatus.text = "Удалить"
+                            } else {
+                                viewModel.deleteFavorite(gameDetail.details.id.toString(),
+                                    TOKEN_QUERY + getToken())
+                                favoriteStatus.text = "Добавить"
+                            }
+                        }
                         game_description.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            Html.fromHtml(it.details.description, Html.FROM_HTML_MODE_COMPACT)
+                            Html.fromHtml(gameDetail.details.description, Html.FROM_HTML_MODE_COMPACT)
                         } else {
-                            Html.fromHtml(it.details.description)
+                            Html.fromHtml(gameDetail.details.description)
                         }
-                        website_link.text = it.details.website
-                        metacritic_link.text = it.details.metacritic_url
-                        website_link.setOnClickListener{
+                        website_link.text = gameDetail.details.website
+                        metacritic_link.text = gameDetail.details.metacritic_url
+                        website_link.setOnClickListener {
                             val openURL = Intent(Intent.ACTION_VIEW)
-                            openURL.data = Uri.parse(website_link.text.toString())
-                            startActivity(openURL)
+                            if (!website_link.text.toString().isNullOrEmpty()) {
+                                openURL.data = Uri.parse(website_link.text.toString())
+                                startActivity(openURL)
+                            }
                         }
-                        metacritic_link.setOnClickListener{
+                        metacritic_link.setOnClickListener {
                             val openURL = Intent(Intent.ACTION_VIEW)
-                            openURL.data = Uri.parse(metacritic_link.text.toString())
-                            startActivity(openURL)
+                            if (!metacritic_link.text.toString().isNullOrEmpty()) {
+                                openURL.data = Uri.parse(metacritic_link.text.toString())
+                                startActivity(openURL)
+                            }
                         }
                         image_slider.setImageList(imageList)
                         image_slider.startSliding(1500)
@@ -96,11 +115,11 @@ class GameDetailsFragment : Fragment() {
                 }
                 is Resource.Error -> {
                     detailsProgressBar.visibility = View.INVISIBLE
-                    response.data?.let{
+                    response.data?.let {
                         Log.e("wrongData", "GameDetailsFragment: ${it}")
                     }
                 }
-                is Resource.Loading ->{
+                is Resource.Loading -> {
                     detailsProgressBar.visibility = View.VISIBLE
                 }
             }
