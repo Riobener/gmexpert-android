@@ -11,7 +11,7 @@ interface GameService {
     suspend fun findGames(
         @Query(value = "page") page: String,
         @Query(value = "page_size") page_size: String
-    ): Response<GameResponse>
+    ): GameResponse
 
     @GET("games/details")
     suspend fun findGameDetails(
