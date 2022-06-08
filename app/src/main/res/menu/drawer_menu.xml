@@ -10,7 +10,7 @@
             android:id="@+id/searchFragment"
             android:title="Поиск игр" />
         <item
-            android:id="@+id/nav_favorite"
+            android:id="@+id/favoritesFragment"
             android:title="Избранное" />
         <item
             android:id="@+id/nav_logout"

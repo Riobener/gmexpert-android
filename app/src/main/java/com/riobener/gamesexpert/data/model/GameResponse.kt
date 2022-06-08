@@ -43,3 +43,9 @@ data class GameDetailsResponse(
     val images: GameScreenshots,
     val inFavorite: Boolean
 )
+
+data class FavoriteResponse(
+    val gameId: String,
+    val gameTitle: String,
+    val screenshot: String
+)

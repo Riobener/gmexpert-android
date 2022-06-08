@@ -33,6 +33,9 @@ class GamesRepository @Inject constructor(private val gameService: GameService) 
     suspend fun deleteFavorite(gameId: String, token: String) =
         gameService.deleteFavorite(gameId, token)
 
+    suspend fun getFavorites(token: String) =
+        gameService.getFavorites(token)
+
     companion object {
         const val NETWORK_PAGE_SIZE = 20
     }

@@ -13,13 +13,17 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.riobener.gamesexpert.R
+import com.riobener.gamesexpert.databinding.FragmentFavoriteBinding
 import com.riobener.gamesexpert.databinding.FragmentSearchBinding
+import com.riobener.gamesexpert.ui.adapters.FavoritesAdapter
 import com.riobener.gamesexpert.ui.adapters.GamesAdapter
 import com.riobener.gamesexpert.ui.adapters.SearchGamesAdapter
+import com.riobener.gamesexpert.ui.viewmodels.GamesListViewModel
 import com.riobener.gamesexpert.ui.viewmodels.SearchViewModel
 import com.riobener.gamesexpert.utils.Constants.Companion.TOKEN_QUERY
 import com.riobener.gamesexpert.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_favorite.*
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -27,19 +31,19 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment : Fragment() {
+class FavoritesFragment : Fragment() {
 
-    private var _binding: FragmentSearchBinding? = null
+    private var _binding: FragmentFavoriteBinding? = null
     private val mBinding get() = _binding!!
 
-    private val viewModel by viewModels<SearchViewModel>()
-    lateinit var gamesAdapter: SearchGamesAdapter
+    private val viewModel by viewModels<GamesListViewModel>()
+    lateinit var gamesAdapter: FavoritesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentFavoriteBinding.inflate(layoutInflater, container, false)
         return mBinding.root
     }
 
@@ -51,46 +55,35 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initAdapter(view)
-        var job: Job? = null
-        edit_search.addTextChangedListener { text: Editable? ->
-            job?.cancel()
-            job = MainScope().launch {
-                 delay(1000L)
-                text?.let{
-                    if(it.toString().isNotEmpty()){
-                        viewModel.getSearchGames(query = it.toString(), TOKEN_QUERY+getToken())
-                    }
-                }
-            }
-        }
-        viewModel.searchGamesLiveData.observe(viewLifecycleOwner) { responce ->
-            when(responce) {
+        viewModel.getFavorites(TOKEN_QUERY+getToken())
+        viewModel.favoritesLiveData.observe(viewLifecycleOwner) { response ->
+            when(response) {
                 is Resource.Success -> {
-                    searchProgress.visibility = View.INVISIBLE
-                    responce.data?.let {
-                        gamesAdapter.differ.submitList(it.results)
+                    favoriteProgress.visibility = View.INVISIBLE
+                    response.data?.let {
+                        gamesAdapter.differ.submitList(it)
                     }
                 }
                 is Resource.Error -> {
-                    searchProgress.visibility = View.INVISIBLE
-                    responce.data?.let {
+                    favoriteProgress.visibility = View.INVISIBLE
+                    response.data?.let {
                         Log.e("checkData", "MainFragment: error: ${it}")
                     }
                 }
                 is Resource.Loading -> {
-                    searchProgress.visibility = View.VISIBLE
+                    favoriteProgress.visibility = View.VISIBLE
                 }
             }
         }
     }
 
     private fun initAdapter(view: View) {
-        gamesAdapter = SearchGamesAdapter()
+        gamesAdapter = FavoritesAdapter()
         gamesAdapter.onItemClick = {
-            val action = SearchFragmentDirections.actionSearchFragmentToGameDetailsFragment(it.id)
+            val action = FavoritesFragmentDirections.actionFavoritesFragmentToGameDetailsFragment(it.gameId.toInt())
             Navigation.findNavController(view).navigate(action)
         }
-        search_games_list.apply {
+        favorite_game_list.apply {
             adapter = gamesAdapter
             layoutManager = LinearLayoutManager(activity)
         }

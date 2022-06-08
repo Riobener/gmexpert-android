@@ -41,4 +41,9 @@ interface GameService {
         @Header("Authorization") authHeader: String
     ): Response<Int>
 
+    @GET("games/favorite")
+    suspend fun getFavorites(
+        @Header("Authorization") authHeader: String
+    ): Response<List<FavoriteResponse>>
+
 }

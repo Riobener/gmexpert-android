@@ -14,12 +14,8 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(private val repository: GamesRepository): ViewModel() {
 
     val searchGamesLiveData: MutableLiveData<Resource<GameResponse>> = MutableLiveData()
-    lateinit var token: String
-/*    init {
-        getSearchGames("")
-    }*/
 
-    fun getSearchGames(query: String) =
+    fun getSearchGames(query: String, token:String) =
         viewModelScope.launch {
             searchGamesLiveData.postValue(Resource.Loading())
             val response = repository.getGamesByQuery(query = query,token)
