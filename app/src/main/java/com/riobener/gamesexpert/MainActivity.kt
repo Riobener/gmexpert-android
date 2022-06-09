@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(),DrawerController {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_splash)
         CoroutineScope(Dispatchers.Main).launch {
-            delay(1500)
+            delay(2000)
             _binding = ActivityMainBinding.inflate(layoutInflater)
             setContentView(mBinding.root)
             val controller = Navigation.findNavController(login_host.requireView())
