@@ -22,6 +22,9 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import com.riobener.gamesexpert.DrawerController
 import com.riobener.gamesexpert.MainActivity
 import com.riobener.gamesexpert.utils.Constants.Companion.TOKEN_QUERY
@@ -53,11 +56,11 @@ class LoginFragment : Fragment() {
             it.findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
         loginButton.setOnClickListener {loginButtonView->
-            viewModel.authUser(username = username.text.toString(), password = password.text.toString())
+            viewModel.authUser(username = username.text.toString(), password = password.text.toString(),requireContext())
             viewModel.token.observe(this, Observer {token->
                 if(token!=null){
                     saveToken(token.token)
-                    loginButtonView.findNavController().navigate(R.id.action_loginFragment_to_gamesListFragment)
+                    findNavController().safeNavigate(LoginFragmentDirections.actionLoginFragmentToGamesListFragment())
                 }
             })
         }
@@ -83,6 +86,13 @@ class LoginFragment : Fragment() {
             edit.commit()
         } catch (e: JSONException) {
             e.printStackTrace()
+        }
+    }
+    fun NavController.safeNavigate(direction: NavDirections) {
+        Log.d("CLICK", "Click happened")
+        currentDestination?.getAction(direction.actionId)?.run {
+            Log.d("CLICK", "Click Propagated")
+            navigate(direction)
         }
     }
 }
