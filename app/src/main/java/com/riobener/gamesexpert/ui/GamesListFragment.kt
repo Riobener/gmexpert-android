@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +17,7 @@ import androidx.navigation.findNavController
 import androidx.paging.PagingData
 import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.riobener.gamesexpert.MainActivity
 import com.riobener.gamesexpert.R
 import com.riobener.gamesexpert.data.model.Game
 import com.riobener.gamesexpert.databinding.FragmentGamesListBinding
@@ -42,6 +44,7 @@ class GamesListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGamesListBinding.inflate(layoutInflater, container, false)
+        (activity as MainActivity?)!!.setDrawer_Unlocked()
         return mBinding.root
     }
 

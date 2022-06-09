@@ -20,6 +20,12 @@ import org.json.JSONException
 
 import android.content.SharedPreferences
 import android.util.Log
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+import com.riobener.gamesexpert.DrawerController
+import com.riobener.gamesexpert.MainActivity
+import com.riobener.gamesexpert.utils.Constants.Companion.TOKEN_QUERY
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 @AndroidEntryPoint
@@ -53,10 +59,20 @@ class LoginFragment : Fragment() {
                     saveToken(token.token)
                     loginButtonView.findNavController().navigate(R.id.action_loginFragment_to_gamesListFragment)
                 }
-
             })
         }
+        viewModel.hello(TOKEN_QUERY+getToken())
+        viewModel.result.observe(this, Observer {
+            if(it.result=="Welcome!")
+                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_gamesListFragment)
+        })
     }
+
+    private fun getToken(): String {
+        val prefs = this.activity!!.getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        return prefs.getString("token", "")!!
+    }
+
     fun saveToken(token: String){
         val prefs: SharedPreferences = activity!!.getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
         val edit: SharedPreferences.Editor = prefs.edit()

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import com.riobener.gamesexpert.MainActivity
 import com.riobener.gamesexpert.R
 
 class LogoutFragment : Fragment() {
@@ -22,6 +23,7 @@ class LogoutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity?)!!.setDrawer_Locked()
         deleteToken()
         view.findNavController().navigate(R.id.action_logoutFragment_to_loginFragment)
     }

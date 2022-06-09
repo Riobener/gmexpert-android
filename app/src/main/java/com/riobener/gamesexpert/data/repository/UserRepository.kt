@@ -11,12 +11,15 @@ class UserRepository @Inject constructor(private val userService: UserService) {
 
 
     suspend fun login(username: String, password: String): Response<TokenResponse> {
-        // handle login
         return userService.authUser(UserDataRequest(username, password))
     }
 
     suspend fun register(username: String, password: String): Response<SimpleResponse> {
         return userService.createUser(UserDataRequest(username, password))
+    }
+
+    suspend fun hello(token: String): Response<SimpleResponse> {
+        return userService.hello(token)
     }
 
 }
