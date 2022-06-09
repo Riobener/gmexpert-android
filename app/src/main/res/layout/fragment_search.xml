@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.GamesListFragment">
+    tools:context=".ui.GamesListFragment"
+    android:background="@drawable/layout_bg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,8 @@
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="18dp"
             android:text="Поиск"
-            android:textColor="@color/grey_font"
+            android:textColor="@color/white"
+            android:background="@drawable/text_style"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -28,7 +30,9 @@
             android:hint="Введите название игры"
             android:paddingHorizontal="14dp"
             android:paddingVertical="24dp"
-            android:textColor="@color/black"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:background="@drawable/text_style"
             android:textSize="17sp" />
 
         <androidx.recyclerview.widget.RecyclerView

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
+import android.view.View
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -33,6 +34,8 @@ class MainActivity : AppCompatActivity(),DrawerController {
             val controller = Navigation.findNavController(login_host.requireView())
             mBinding.navView.setupWithNavController(controller)
             setDrawer_Locked()
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+            actionBar?.hide()
         }
     }
 
