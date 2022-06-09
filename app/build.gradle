@@ -40,13 +40,13 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     // Coroutines
     def coroutinesVersion = "1.5.2"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     // Lifecycle
     def lifecycleVersion = "2.4.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
@@ -71,9 +71,6 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
     // Pagination
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
-    // Pull-to-refresh
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     // Paging
     def paging_version = "3.1.1"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
